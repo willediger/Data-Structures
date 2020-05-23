@@ -94,7 +94,7 @@ class DoublyLinkedList:
 
             if curr_tail.prev:
                 self.tail = curr_tail.prev
-                self.head.next = None
+                self.tail.next = None
             else:
                 self.head = None
                 self.tail = None
