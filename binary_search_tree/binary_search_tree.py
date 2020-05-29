@@ -1,6 +1,13 @@
 from queue import Queue
 from stack import Stack
 
+from enum import Enum
+
+class Order(Enum):
+    pre_order = "pre order"
+    post_order = "post order"
+    in_order = "in order"
+
 """
 Binary search trees are a data structure that enforce an ordering over 
 the data they store. That ordering in turn makes it a lot more efficient 
@@ -62,20 +69,20 @@ class BSTNode:
             return self.value
 
     # Call the function `fn` on the value of each node
-    def for_each(self, fn, mode="in order"):
-        if mode == "pre order":
+    def for_each(self, fn, order=Order.in_order):
+        if order == Order.pre_order:
             fn(self.value)
 
         if self.left:
-            self.left.for_each(fn, mode)
+            self.left.for_each(fn, order)
 
-        if mode == "in order":
+        if order == Order.in_order:
             fn(self.value)
 
         if self.right:
-            self.right.for_each(fn, mode)
+            self.right.for_each(fn, order)
 
-        if mode == "post order":
+        if order == Order.post_order:
             fn(self.value)
 
     # Part 2 -----------------------
@@ -83,7 +90,7 @@ class BSTNode:
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        node.for_each(print)
+        node.for_each(print, Order.in_order)
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
@@ -115,8 +122,8 @@ class BSTNode:
 
     # Print Pre-order recursive DFT
     def pre_order_dft(self, node):
-        node.for_each(print, "pre order")
+        node.for_each(print, Order.pre_order)
 
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
-        node.for_each(print, "post order")
+        node.for_each(print, Order.post_order)
