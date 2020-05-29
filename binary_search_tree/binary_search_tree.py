@@ -62,12 +62,21 @@ class BSTNode:
             return self.value
 
     # Call the function `fn` on the value of each node
-    def for_each(self, fn):
-        fn(self.value)
+    def for_each(self, fn, mode="in order"):
+        if mode == "pre order":
+            fn(self.value)
+
         if self.left:
-            self.left.for_each(fn)
+            self.left.for_each(fn, mode)
+
+        if mode == "in order":
+            fn(self.value)
+
         if self.right:
-            self.right.for_each(fn)
+            self.right.for_each(fn, mode)
+
+        if mode == "post order":
+            fn(self.value)
 
     # Part 2 -----------------------
 
@@ -106,8 +115,8 @@ class BSTNode:
 
     # Print Pre-order recursive DFT
     def pre_order_dft(self, node):
-        pass
+        node.for_each(print, "pre order")
 
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
-        pass
+        node.for_each(print, "post order")
